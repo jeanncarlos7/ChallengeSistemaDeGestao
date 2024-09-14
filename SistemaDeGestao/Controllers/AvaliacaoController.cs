@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Oracle.ManagedDataAccess.Client;
 using SistemaDeGestao.Models;
 using SistemaDeGestao.Repositorios;
 using SistemaDeGestao.Repositorios.Interfaces;
@@ -69,7 +69,7 @@ namespace SistemaDeGestao.Controllers
             catch(Exception ex) {
                 if (ex.InnerException is DbUpdateException dbUpdateException)
                 {
-                    var sqlException = dbUpdateException.GetBaseException() as SqlException;
+                    var sqlException = dbUpdateException.GetBaseException() as OracleException;
                     if (sqlException != null)
                     {
                         var number = sqlException.Number;

@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Oracle.EntityFrameworkCore.Metadata;
 using SistemaDeGestao.Data;
 
 #nullable disable
@@ -12,8 +12,8 @@ using SistemaDeGestao.Data;
 namespace SistemaDeGestao.Migrations
 {
     [DbContext(typeof(SistemaTarefasDBContext))]
-    [Migration("20240519214137_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240914205052_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,65 +23,100 @@ namespace SistemaDeGestao.Migrations
                 .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("SistemaDeGestao.Models.AvaliacaoModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("NVARCHAR2(1000)")
+                        .HasColumnName("Descricao");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("NVARCHAR2(255)")
+                        .HasColumnName("Email");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
+                        .HasColumnType("NVARCHAR2(225)")
+                        .HasColumnName("Nome");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("Status");
 
                     b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("UsuarioId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Avaliacoes", (string)null);
+                    b.ToTable("Avaliacoes");
+                });
+
+            modelBuilder.Entity("SistemaDeGestao.Models.ProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("Id");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("Descricao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("Nome");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("DECIMAL(18, 2)")
+                        .HasColumnName("Preco");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("SistemaDeGestao.Models.TarefaModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descricao")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("NVARCHAR2(1000)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
+                        .HasColumnType("NVARCHAR2(225)");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("UsuarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
 
@@ -94,19 +129,22 @@ namespace SistemaDeGestao.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("Id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("NVARCHAR2(150)")
+                        .HasColumnName("Email");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
+                        .HasColumnType("NVARCHAR2(225)")
+                        .HasColumnName("Nome");
 
                     b.HasKey("Id");
 
@@ -119,7 +157,8 @@ namespace SistemaDeGestao.Migrations
                         .WithMany("Avaliacoes")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_AvaliacaoModel_Usuario");
 
                     b.Navigation("Usuario");
                 });

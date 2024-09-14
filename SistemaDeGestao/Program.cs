@@ -5,6 +5,7 @@ using SistemaDeGestao.Data;
 using SistemaDeGestao.Repositorios;
 using SistemaDeGestao.Services;
 using SistemaDeGestao.Settings;
+using System.Reflection;
 
 namespace SistemaDeGestao
 {
@@ -35,16 +36,19 @@ namespace SistemaDeGestao
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            IServiceCollection serviceCollection = builder.Services.AddEntityFrameworkSqlServer()
+            var oracleConectionString = builder.Configuration.GetConnectionString("OracleConnection");
+
+            IServiceCollection serviceCollection = builder.Services
                 .AddDbContext<SistemaTarefasDBContext>(
                 Options =>
                 {
-                    Options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"));
+                    Options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
                 });
 
             builder.Services.AddScoped<Repositorios.Interfaces.IUsuarioRepositorio, UsuarioRepositorio>();
             builder.Services.AddScoped<Repositorios.Interfaces.ITarefaRepositorio, TarefaRepositorio>();
             builder.Services.AddScoped<Repositorios.Interfaces.IAvaliacaoRepositorio, AvaliacaoRepositorio>();
+            builder.Services.AddScoped<Repositorios.Interfaces.IProdutoRepositorio, ProdutoRepositorio>();
 
             // Program.cs - Swagger Configuration
             builder.Services.AddSwaggerGen(c =>
