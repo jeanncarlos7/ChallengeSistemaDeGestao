@@ -1,0 +1,129 @@
+# Sistema de Gestão
+
+## Alunos: 
+•	Felipe Torlai RM 550263
+•	Felipe Pinheiro RM 550244
+•	Gabriel Girami RM 98017
+•	Gustavo Vinhola RM 98826
+•	Jean Carlos RM 550430 
+
+## Visão Geral
+Este projeto é um sistema de gestão que permite a administração de produtos, tarefas, usuários e avaliações. 
+Ele foi desenvolvido com o intuito de criar uma solução escalável e eficiente para o gerenciamento de dados em diferentes módulos.
+O sistema inclui integração com bancos de dados relacionais (Oracle) e NoSQL (MongoDB), além de oferecer uma API RESTful para interagir com os diferentes modelos.
+
+## Tecnologias Utilizadas:
+C# com ASP.NET Core
+Entity Framework Core (para integração com Oracle)
+MongoDB.Driver (para integração com MongoDB)
+Swagger/OpenAPI (para documentação da API)
+Microsoft Extensions para gerenciamento de dependências e configurações
+
+## Estrutura do Projeto
+Camadas Principais:
+  Models: Representam as entidades do sistema como Produto, Tarefa, Usuario, Avaliacao, Cliente.
+  Repositorios: Contém interfaces e implementações dos repositórios para gerenciar operações de banco de dados (CRUD).
+  Controllers: Controladores que expõem a API e lidam com as solicitações HTTP.
+  Services: Serviços que encapsulam a lógica de negócios e comunicação com MongoDB.
+  ConfiguracaoSingleton: Implementa o padrão Singleton para gerenciar a configuração central do sistema.
+  Settings: Gerencia configurações específicas como conexões ao banco de dados.
+  
+## Funcionalidades
+1. Gerenciamento de Produtos
+  Listar Produtos: Retorna todos os produtos disponíveis no sistema.
+  Adicionar Produto: Cadastra um novo produto.
+  Atualizar Produto: Atualiza informações de um produto existente.
+  Deletar Produto: Remove um produto.
+
+2. Gerenciamento de Tarefas
+  Listar Tarefas: Retorna todas as tarefas cadastradas.
+  Adicionar Tarefa: Adiciona uma nova tarefa ao sistema.
+  Atualizar Tarefa: Atualiza uma tarefa existente.
+  Deletar Tarefa: Remove uma tarefa.
+
+3. Gerenciamento de Usuários
+  Listar Usuários: Retorna todos os usuários cadastrados.
+  Adicionar Usuário: Cadastra um novo usuário no sistema.
+  Atualizar Usuário: Atualiza as informações de um usuário existente.
+  Deletar Usuário: Remove um usuário do sistema.
+
+4. Avaliações de Usuários
+  Listar Avaliações: Retorna todas as avaliações feitas no sistema.
+  Adicionar Avaliação: Cadastra uma nova avaliação relacionada a um usuário.
+  Atualizar Avaliação: Atualiza uma avaliação existente.
+  Deletar Avaliação: Remove uma avaliação.
+
+5. Gerenciamento de Clientes (MongoDB)
+  Listar Clientes: Retorna todos os clientes cadastrados no MongoDB.
+  Adicionar Cliente: Adiciona um novo cliente à base MongoDB.
+  Atualizar Cliente: Atualiza informações de um cliente existente.
+  Deletar Cliente: Remove um cliente do sistema MongoDB.
+
+## Instalação e Configuração
+Pré-requisitos:
+  .NET Core SDK 6.0 ou superior
+  MongoDB em execução localmente ou em um servidor
+  Oracle Database em execução localmente ou em um servidor
+
+## Passos para rodar o projeto:
+1. Clone o repositório:
+git clone https://github.com/seu-usuario/sistema-de-gestao.git
+cd sistema-de-gestao
+
+2. Configuração do Banco de Dados:
+  Crie um banco de dados no Oracle e configure as tabelas para Produto, Tarefa, Usuario, e Avaliacao.
+  Crie um banco de dados MongoDB com uma coleção para Clientes.
+
+3. Configuração do arquivo appsettings.json: Configure a conexão com Oracle e MongoDB em appsettings.json:
+{
+  "ConnectionStrings": {
+    "OracleConnection": "Data Source=seu-oracle-db;User Id=usuario;Password=senha;"
+  },
+  "MongoDbSettings": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "DatabaseName": "NomeDoBancoMongoDB",
+    "CollectionName": "Clientes"
+  }
+}
+
+4. Restaurar pacotes e executar o projeto: Execute os seguintes comandos:
+dotnet restore
+dotnet run
+
+5. Acessar a API: Acesse a documentação Swagger para testar as rotas da API em http://localhost:5000/swagger/index.html.
+
+## Estrutura de Diretórios
+/SistemaDeGestao
+│
+├── /Controllers          # Controladores responsáveis por gerenciar as rotas
+├── /Models               # Modelos que representam as entidades do sistema
+├── /Repositorios         # Implementação dos repositórios e interfaces
+├── /Services             # Serviços para comunicação com MongoDB
+├── /Settings             # Configurações do sistema
+└── Program.cs            # Ponto de entrada do sistema
+
+## Testes
+Para rodar os testes, siga os passos abaixo:
+
+1. Instalar pacotes de teste: Certifique-se de que você tem as bibliotecas de testes instaladas:
+dotnet add package NUnit
+dotnet add package NUnit3TestAdapter
+dotnet add package Microsoft.NET.Test.Sdk
+
+2. Executar testes:
+dotnet test
+
+## Contribuição
+Sinta-se à vontade para contribuir com melhorias para o projeto. Para isso, siga o fluxo abaixo:
+
+  Faça um Fork do projeto.
+  Crie uma nova branch para sua funcionalidade (git checkout -b feature/nova-funcionalidade).
+  Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
+  Faça o Push para o branch (git push origin feature/nova-funcionalidade).
+  Abra um Pull Request.
+  
+## Licença
+Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
+
+
+
