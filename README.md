@@ -61,36 +61,34 @@ Camadas Principais:
 
 ## Instalação e Configuração
 Pré-requisitos:
-  .NET Core SDK 6.0 ou superior
-  MongoDB em execução localmente ou em um servidor
-  Oracle Database em execução localmente ou em um servidor
+  .NET SDK 7.0 ou superior: Para rodar e compilar a API.
+  Visual Studio Code: IDE para desenvolvimento e execução do projeto.
+  SQL Server ou Oracle: Servidor de banco de dados relacional utilizado no projeto.
+  Docker (Opcional): Para rodar o banco de dados em containers Docker, caso prefira.
+  Postman ou similar: Para testar as requisições HTTP da API.
 
 ## Passos para rodar o projeto:
 1. Clone o repositório:
-git clone https://github.com/seu-usuario/sistema-de-gestao.git
-cd sistema-de-gestao
+git clone https://github.com/jeanncarlos7/ChallengeSistemaDeGestao.git 
+cd challenge-sistema-de-gestao
 
-2. Configuração do Banco de Dados:
-  Crie um banco de dados no Oracle e configure as tabelas para Produto, Tarefa, Usuario, e Avaliacao.
-  Crie um banco de dados MongoDB com uma coleção para Clientes.
-
-3. Configuração do arquivo appsettings.json: Configure a conexão com Oracle e MongoDB em appsettings.json:
+2. Configuração do arquivo appsettings.json: Configure a conexão com Oracle e MongoDB em appsettings.json:
 {
   "ConnectionStrings": {
-    "OracleConnection": "Data Source=seu-oracle-db;User Id=usuario;Password=senha;"
+        "OracleConnection": "User Id=RM550430;Password=250586;Data Source=oracle.fiap.com.br:1521/orcl"
   },
   "MongoDbSettings": {
     "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "NomeDoBancoMongoDB",
-    "CollectionName": "Clientes"
-  }
+    "DatabaseName": "MyDatabase",
+    "CollectionName": "MyCollection"
+  },
 }
 
-4. Restaurar pacotes e executar o projeto: Execute os seguintes comandos:
+3. Restaurar pacotes e executar o projeto: Execute os seguintes comandos:
 dotnet restore
 dotnet run
 
-5. Acessar a API: Acesse a documentação Swagger para testar as rotas da API em http://localhost:5000/swagger/index.html.
+4. Acessar a API: Acesse a documentação Swagger para testar as rotas da API em http://localhost:5000/swagger/index.html.
 
 ## Estrutura de Diretórios
 /SistemaDeGestao
