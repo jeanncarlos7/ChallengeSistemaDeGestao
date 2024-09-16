@@ -70,7 +70,6 @@ Pré-requisitos:
 ## Passos para rodar o projeto:
 1. Clone o repositório:
 git clone https://github.com/jeanncarlos7/ChallengeSistemaDeGestao.git 
-cd challenge-sistema-de-gestao
 
 ## Testes
 Para rodar os testes, siga os passos abaixo:
