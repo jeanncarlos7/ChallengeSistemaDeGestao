@@ -61,6 +61,13 @@ namespace SistemaDeGestao
                 });
             });
 
+            builder.Services.AddSwaggerGen(opt =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                opt.IncludeXmlComments(xmlPath);
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

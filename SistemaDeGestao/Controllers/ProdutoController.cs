@@ -19,6 +19,11 @@ namespace SistemaDeGestao.Controllers
             _produtoRepositorio = produtoRepositorio;
         }
 
+        /// <summary>
+        /// Lista os itens de produto.
+        /// </summary>
+        /// <returns>Os itens de produto.</returns>
+        /// <response code="200">Returna os itens de produto cadastrado.</response>
         [HttpGet]
         public async Task<ActionResult<List<ProdutoModel>>> Buscar()
         {
@@ -26,6 +31,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(produtos);
         }
 
+        /// <summary>
+        /// Lista os itens de produto por Id.
+        /// </summary>
+        /// <returns>Os itens de produto por Id.</returns>
+        /// <response code="200">Returna os itens de produto cadastrado por Id.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<AvaliacaoModel>> BuscarPorId(int id)
         {
@@ -37,6 +47,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(produto);
         }
 
+        /// <summary>
+        /// Cria os itens de produto.
+        /// </summary>
+        /// <returns>Os itens de produto criado.</returns>
+        /// <response code="200">Returna os itens de produto criado.</response>
         [HttpPost]
         public async Task<ActionResult<ProdutoModel>> Cadastrar([FromBody] ProdutoInsertModel modelInsert)
         {
@@ -72,6 +87,11 @@ namespace SistemaDeGestao.Controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza os itens de produto por Id.
+        /// </summary>
+        /// <returns>Os itens de produto atualizado por Id.</returns>
+        /// <response code="200">Returna os itens de produto atualizado por Id.</response>
         [HttpPut("{id}")]
         public async Task<ActionResult<ProdutoModel>> Atualizar(int id, [FromBody] ProdutoModel produtoModel)
         {
@@ -93,6 +113,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(produto);
         }
 
+        /// <summary>
+        /// Deleta os itens de produto por Id.
+        /// </summary>
+        /// <returns>Os itens de produto deletado por Id.</returns>
+        /// <response code="200">Returna os itens de produto deletado por Id.</response>
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Apagar(int id)
         {

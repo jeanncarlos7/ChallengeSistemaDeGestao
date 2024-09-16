@@ -23,6 +23,11 @@ namespace SistemaDeGestao.Controllers
             _usuarioRepositorio = usuarioRepositorio;
         }
 
+        /// <summary>
+        /// Lista os itens da avaliação.
+        /// </summary>
+        /// <returns>Os itens da avaliação.</returns>
+        /// <response code="200">Returna os itens da avaliação cadastrado.</response>
         [HttpGet]
         public async Task<ActionResult<List<AvaliacaoModel>>> BuscarAvaliacoes()
         {
@@ -30,6 +35,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(avaliacoes);
         }
 
+        /// <summary>
+        /// Lista os itens da avaliação por Id.
+        /// </summary>
+        /// <returns>Os itens da avaliação por Id.</returns>
+        /// <response code="200">Returna os itens da avaliação cadastrado por Id.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<AvaliacaoModel>> BuscarPorId(int id)
         {
@@ -41,6 +51,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(avaliacao);
         }
 
+        /// <summary>
+        /// Cria os itens da avaliação.
+        /// </summary>
+        /// <returns>Os itens da avaliação criados.</returns>
+        /// <response code="200">Returna os itens da avaliação criado.</response>
         [HttpPost]
         public async Task<ActionResult<AvaliacaoModel>> Cadastrar([FromBody] AvaliacaoModelInsert avaliacaoModelInsert)
         {
@@ -82,6 +97,11 @@ namespace SistemaDeGestao.Controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza os itens da avaliação por Id.
+        /// </summary>
+        /// <returns>Atualiza os itens da avaliação por Id.</returns>
+        /// <response code="200">Returna os itens da avaliação atualizado por Id.</response>
         [HttpPut("{id}")]
         public async Task<ActionResult<AvaliacaoModel>> Atualizar(int id, [FromBody] AvaliacaoModel UpavaliacaoModel)
         {
@@ -96,6 +116,11 @@ namespace SistemaDeGestao.Controllers
             return Ok(avaliacaoAtualizada);
         }
 
+        /// <summary>
+        /// Deleta os itens da avaliação por Id.
+        /// </summary>
+        /// <returns>Apaga os itens da avaliação por Id.</returns>
+        /// <response code="200">Returna os itens da avaliação deletado por Id.</response>
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Apagar(int id)
         {

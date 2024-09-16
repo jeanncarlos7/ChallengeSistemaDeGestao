@@ -18,11 +18,21 @@ namespace SistemaDeGestao.Controllers
             _mongoDbService = mongoDbService;
         }
 
+        /// <summary>
+        /// Lista os itens de cliente.
+        /// </summary>
+        /// <returns>Os itens de cliente.</returns>
+        /// <response code="200">Returna os itens de cliente cadastrado.</response>
         [HttpGet]
         [Consumes("application/json")]
         public async Task<List<ClienteModel>> Get() =>
             await _mongoDbService.GetAsync();
 
+        /// <summary>
+        /// Lista os itens de cliente por Id.
+        /// </summary>
+        /// <returns>Os itens de cliente por Id.</returns>
+        /// <response code="200">Returna os itens de cliente por Id cadastrado.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<ClienteModel>> Get(string id)
         {
@@ -35,6 +45,11 @@ namespace SistemaDeGestao.Controllers
             return entity;
         }
 
+        /// <summary>
+        /// Cria os itens de cliente.
+        /// </summary>
+        /// <returns>Os itens de cliente criado.</returns>
+        /// <response code="200">Returna os itens criados de cliente cadastrado.</response>
         [HttpPost]
         public async Task<IActionResult> Post(ClienteInsertModel clienteInsert)
         {
@@ -48,6 +63,11 @@ namespace SistemaDeGestao.Controllers
             return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
         }
 
+        /// <summary>
+        /// Atualiza os itens de cliente por Id.
+        /// </summary>
+        /// <returns>Os itens de cliente atualizado por Id.</returns>
+        /// <response code="200">Returna os itens de cliente atualizado por Id.</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, ClienteInsertModel updatedEntity)
         {
@@ -70,6 +90,11 @@ namespace SistemaDeGestao.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deleta os itens de cliente por Id.
+        /// </summary>
+        /// <returns>Os itens de cliente deletado por Id.</returns>
+        /// <response code="200">Returna os itens de cliente deletado por Id.</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
