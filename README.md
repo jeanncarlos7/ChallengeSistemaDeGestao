@@ -72,36 +72,6 @@ Pré-requisitos:
 git clone https://github.com/jeanncarlos7/ChallengeSistemaDeGestao.git 
 cd challenge-sistema-de-gestao
 
-2. Configuração do arquivo appsettings.json: Configure a conexão com Oracle e MongoDB em appsettings.json:
-{
-  "ConnectionStrings": {
-        "OracleConnection": "User Id=RM550430;Password=250586;Data Source=oracle.fiap.com.br:1521/orcl"
-  },
-  "MongoDbSettings": {
-    "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "MyDatabase",
-    "CollectionName": "MyCollection"
-  },
-}
-
-Obs: Rodar a Aplicação com Docker
-
-3. Restaurar pacotes e executar o projeto: Execute os seguintes comandos:
-dotnet restore
-dotnet run
-
-4. Acessar a API: Acesse a documentação Swagger para testar as rotas da API em http://localhost:5000/swagger/index.html.
-
-## Estrutura de Diretórios
-/SistemaDeGestao
-│
-├── /Controllers          # Controladores responsáveis por gerenciar as rotas
-├── /Models               # Modelos que representam as entidades do sistema
-├── /Repositorios         # Implementação dos repositórios e interfaces
-├── /Services             # Serviços para comunicação com MongoDB
-├── /Settings             # Configurações do sistema
-└── Program.cs            # Ponto de entrada do sistema
-
 ## Testes
 Para rodar os testes, siga os passos abaixo:
 
