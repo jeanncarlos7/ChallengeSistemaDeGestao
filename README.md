@@ -84,6 +84,8 @@ cd challenge-sistema-de-gestao
   },
 }
 
+Obs: Rodar a Aplicação com Docker
+
 3. Restaurar pacotes e executar o projeto: Execute os seguintes comandos:
 dotnet restore
 dotnet run
