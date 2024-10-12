@@ -1,11 +1,11 @@
 # Sistema de Gestão
 
 ## Alunos: 
-•	Felipe Torlai RM 550263
-•	Felipe Pinheiro RM 550244
-•	Gabriel Girami RM 98017
-•	Gustavo Vinhola RM 98826
-•	Jean Carlos RM 550430 
+Felipe Torlai RM 550263
+Felipe Pinheiro RM 550244
+Gabriel Girami RM 98017
+Gustavo Vinhola RM 98826
+Jean Carlos RM 550430 
 
 ## Visão Geral
 Este projeto é um sistema de gestão que permite a administração de produtos, tarefas, usuários e avaliações. 
@@ -91,6 +91,10 @@ Sinta-se à vontade para contribuir com melhorias para o projeto. Para isso, sig
   Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
   Faça o Push para o branch (git push origin feature/nova-funcionalidade).
   Abra um Pull Request.
+
+  ### Princípios SOLID
+- **SRP (Princípio da Responsabilidade Única)**: Cada serviço implementa uma única responsabilidade, como `AuthService` para autenticação.
+- **OCP (Princípio Aberto-Fechado)**: A aplicação utiliza interfaces para desacoplar implementações específicas.
   
 ## Licença
 Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.

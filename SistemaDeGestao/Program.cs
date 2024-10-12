@@ -6,6 +6,9 @@ using SistemaDeGestao.Repositorios;
 using SistemaDeGestao.Services;
 using SistemaDeGestao.Settings;
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using SistemaDeGestao.Data.Repositories;
 
 namespace SistemaDeGestao
 {
@@ -24,7 +27,10 @@ namespace SistemaDeGestao
 
             // Registrar o serviço MongoDB como Singleton
             builder.Services.AddSingleton<MongoDbService>();
-
+            builder.Services.AddControllers();
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<RecommendationService>();
+            builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
@@ -35,6 +41,7 @@ namespace SistemaDeGestao
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddHttpClient<AuthService>();
 
             var oracleConectionString = builder.Configuration.GetConnectionString("OracleConnection");
 
@@ -75,11 +82,14 @@ namespace SistemaDeGestao
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaDeGestao v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseRouting();
 
             app.MapControllers();
 

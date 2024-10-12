@@ -1,0 +1,18 @@
+﻿public void TrainRecommendationModel()
+{
+    var mlContext = new MLContext();
+    var data = mlContext.Data.LoadFromTextFile<ProductData>("Data/product_data.csv", separatorChar: ',', hasHeader: true);
+    var pipeline = mlContext.Transforms.Text.FeaturizeText("Features", nameof(ProductData.ProductCategory))
+                  .Append(mlContext.Regression.Trainers.FastTree());
+    var model = pipeline.Fit(data);
+    mlContext.Model.Save(model, data.Schema, "Data/MLModels/RecommendationModel.zip");
+}
+public void TrainRecommendationModel()
+{
+    var mlContext = new MLContext();
+    var data = mlContext.Data.LoadFromTextFile<ProductData>("Data/product_data.csv", separatorChar: ',', hasHeader: true);
+    var pipeline = mlContext.Transforms.Text.FeaturizeText("Features", nameof(ProductData.ProductCategory))
+                  .Append(mlContext.Regression.Trainers.FastTree());
+    var model = pipeline.Fit(data);
+    mlContext.Model.Save(model, data.Schema, "Data/MLModels/RecommendationModel.zip");
+}
