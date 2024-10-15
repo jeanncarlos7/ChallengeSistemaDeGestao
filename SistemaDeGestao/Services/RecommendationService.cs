@@ -1,30 +1,44 @@
-﻿public class RecommendationService
-{
-    private readonly MLContext _mlContext;
-    private readonly ITransformer _model;
+﻿using Microsoft.ML;
+using Microsoft.ML.Data;
+using SistemaDeGestao.Models;
 
-    public RecommendationService()
+namespace SistemaDeGestao.Services
+{
+    public class RecommendationService
     {
-        _mlContext = new MLContext();
-        _model = _mlContext.Model.Load("Data/MLModels/RecommendationModel.zip", out _);
+        private readonly MLContext _mlContext;
+        private readonly ITransformer _model;
+
+        public RecommendationService()
+        {
+            _mlContext = new MLContext();
+            _model = _mlContext.Model.Load("Data/MLModels/SentimentModel.zip", out _);
+        }
+
+        // Método para treinar e salvar o modelo de análise de sentimentos
+        public void TrainSentimentModel()
+        {
+            // Carregar dados de exemplo para treinamento (substitua com o caminho real)
+            var data = _mlContext.Data.LoadFromTextFile<SentimentData>("Data/sentiment_data.csv", hasHeader: true);
+
+            // Definir pipeline de treinamento
+            var pipeline = _mlContext.Transforms.Text.FeaturizeText("Features", nameof(SentimentData.Text))
+                          .Append(_mlContext.BinaryClassification.Trainers.SdcaLogisticRegression());
+
+            // Treinar o modelo
+            var model = pipeline.Fit(data);
+
+            // Salvar o modelo treinado
+            _mlContext.Model.Save(model, data.Schema, "Data/MLModels/SentimentModel.zip");
+        }
+
+        // Método para prever o sentimento usando o modelo carregado
+        public string GetSentiment(string text)
+        {
+            var predictionEngine = _mlContext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
+            var prediction = predictionEngine.Predict(new SentimentData { Text = text });
+
+            return prediction.Prediction ? "Positive Sentiment" : "Negative Sentiment";
+        }
     }
-
-    public string GetSentiment(string text)
-    {
-        var predictionEngine = _mlContext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
-        var prediction = predictionEngine.Predict(new SentimentData { Text = text });
-
-        return prediction.Prediction ? "Positive Sentiment" : "Negative Sentiment";
-    }
-}
-
-public class SentimentData
-{
-    public string Text { get; set; }
-}
-
-public class SentimentPrediction
-{
-    public bool Prediction { get; set; }
-    public float Probability { get; set; }
 }
