@@ -1,14 +1,12 @@
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using SistemaDeGestao.Data;
 using SistemaDeGestao.Repositorios;
+using SistemaDeGestao.Repositorios.Interfaces;
 using SistemaDeGestao.Services;
 using SistemaDeGestao.Settings;
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using SistemaDeGestao.Data.Repositories;
 
 namespace SistemaDeGestao
 {
@@ -18,71 +16,92 @@ namespace SistemaDeGestao
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
-
-            // Carregar as configurações do MongoDbSettings a partir do appsettings.json
+            // Carregar configurações do MongoDbSettings a partir do appsettings.json
             builder.Services.Configure<MongoDbSettings>(
                 builder.Configuration.GetSection("MongoDbSettings"));
 
-            // Registrar o serviço MongoDB como Singleton
+            // Registrar serviços para integração com MongoDB e outros
             builder.Services.AddSingleton<MongoDbService>();
-            builder.Services.AddControllers();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<RecommendationService>();
-            builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
+            // Configuração para o HttpClient com Timeout e Retry
+            builder.Services.AddHttpClient<AuthService>()
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                .ConfigureHttpClient(client =>
+                {
+                    client.Timeout = TimeSpan.FromSeconds(30); // Timeout de 30 segundos
+                });
+
+            // Configuração do contexto de banco de dados Oracle
+            builder.Services.AddDbContext<SistemaTarefasDBContext>(options =>
+                options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection")));
+
+            // Configuração dos repositórios
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            builder.Services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
+            builder.Services.AddScoped<IAvaliacaoRepositorio, AvaliacaoRepositorio>();
+            builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+
+            // Configuração de controladores e JSON
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
                 options.JsonSerializerOptions.MaxDepth = 64;
             });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Configuração do Swagger com Segurança JWT
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddHttpClient<AuthService>();
-
-            var oracleConectionString = builder.Configuration.GetConnectionString("OracleConnection");
-
-            IServiceCollection serviceCollection = builder.Services
-                .AddDbContext<SistemaTarefasDBContext>(
-                Options =>
-                {
-                    Options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
-                });
-
-            builder.Services.AddScoped<Repositorios.Interfaces.IUsuarioRepositorio, UsuarioRepositorio>();
-            builder.Services.AddScoped<Repositorios.Interfaces.ITarefaRepositorio, TarefaRepositorio>();
-            builder.Services.AddScoped<Repositorios.Interfaces.IAvaliacaoRepositorio, AvaliacaoRepositorio>();
-            builder.Services.AddScoped<Repositorios.Interfaces.IProdutoRepositorio, ProdutoRepositorio>();
-
-            // Program.cs - Swagger Configuration
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Version = "v1",
                     Title = "API Sistema de Gestão",
-                    Description = "Documentação da API Sistema de Gestão",
+                    Version = "v1",
+                    Description = "Documentação da API Sistema de Gestão"
                 });
-            });
 
-            builder.Services.AddSwaggerGen(opt =>
-            {
+                // Definição de segurança para JWT
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Por favor, insira o token JWT com o prefixo 'Bearer' [Ex: Bearer {token}]",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+
+                // Adiciona comentários XML no Swagger
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                opt.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);
             });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configuração do pipeline HTTP
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaDeGestao v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaDeGestao v1");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -94,11 +113,6 @@ namespace SistemaDeGestao
             app.MapControllers();
 
             app.Run();
-        }
-
-        private static void AddDbContext<T>(Func<object, object> value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

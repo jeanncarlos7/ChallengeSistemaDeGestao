@@ -15,13 +15,11 @@ namespace SistemaDeGestao.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login([FromBody] AuthRequestDTO authRequest)
         {
-            bool isAuthenticated = await _authService.AuthenticateUserAsync(email, password);
-            if (isAuthenticated)
-                return Ok("Login successful");
-
-            return Unauthorized("Invalid credentials");
+            bool isAuthenticated = await _authService.AuthenticateUserAsync(authRequest.Email, authRequest.Password);
+            return isAuthenticated ? Ok("Login successful") : Unauthorized("Invalid credentials");
         }
+
     }
 }

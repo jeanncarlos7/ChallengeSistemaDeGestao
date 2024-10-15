@@ -1,28 +1,37 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Polly;
+using Polly.Retry;
 
 namespace SistemaDeGestao.Services
 {
     public class AuthService
     {
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _client;
+        private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
-        public AuthService(IHttpClientFactory clientFactory)
+        public AuthService(HttpClient client)
         {
-            _clientFactory = clientFactory;
+            _client = client;
+
+            _retryPolicy = Policy
+                .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
+                .Or<HttpRequestException>()
+                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))); 
         }
 
         public async Task<bool> AuthenticateUserAsync(string email, string password)
         {
             try
             {
-                var client = _clientFactory.CreateClient();
-                var response = await client.PostAsJsonAsync("https://api.external-service.com/auth", new { email, password });
+                var response = await _retryPolicy.ExecuteAsync(() =>
+                    _client.PostAsJsonAsync("https://api.external-service.com/auth", new { email, password }));
+
                 return response.IsSuccessStatusCode;
             }
             catch (HttpRequestException e)
             {
-                // Log exception and return false
+
                 return false;
             }
         }
