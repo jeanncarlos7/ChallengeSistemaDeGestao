@@ -6,7 +6,11 @@
 - Felipe Pinheiro RM 550244
 - Gabriel Girami RM 98017
 - Gustavo Vinhola RM 98826
-- Jean Carlos RM 550430 
+- Jean Carlos RM 550430
+
+## Introdução
+
+- O gerenciamento eficaz de dados e a capacidade de oferecer recomendações personalizadas são diferenciais importantes em um ambiente competitivo. O Sistema de Gestão foi criado com o objetivo de atender a essa necessidade, combinando a praticidade do gerenciamento de tarefas e avaliações. Integrado com APIs externas, como o ViaCEP, o sistema oferece uma experiência de usuário otimizada, agilizando processos como busca de endereços e avaliação de clientes. Além disso, ele permite que a equipe tome decisões baseadas em dados, utilizando um banco de dados relacional e um banco NoSQL para flexibilizar o armazenamento e a recuperação de informações.
 
 ## Visão Geral
 
@@ -105,6 +109,10 @@ Pré-requisitos:
 
 - **SRP (Princípio da Responsabilidade Única)**: Cada serviço implementa uma única responsabilidade, como `AuthService` para autenticação.
 - **OCP (Princípio Aberto-Fechado)**: A aplicação utiliza interfaces para desacoplar implementações específicas.
+
+## Conclusão
+
+- O Sistema de Gestão representa uma solução completa para empresas que buscam melhorar a eficiência no gerenciamento de dados e a interação com clientes. Com sua arquitetura modular e integrações externas, o sistema facilita a execução de processos de forma prática e intuitiva. A implementação de Machine Learning para recomendações personalizadas contribui para a criação de experiências mais significativas para os usuários, permitindo que o sistema evolua com base nos dados e necessidades dos clientes. Essa solução posiciona a organização para atuar de maneira mais estratégica e baseada em dados, aumentando a competitividade e a satisfação do cliente.
   
 ## Licença
 
