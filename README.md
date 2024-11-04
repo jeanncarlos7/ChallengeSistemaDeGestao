@@ -1,6 +1,7 @@
 # Sistema de Gestão
 
 ## Alunos: 
+
 Felipe Torlai RM 550263
 Felipe Pinheiro RM 550244
 Gabriel Girami RM 98017
@@ -8,18 +9,24 @@ Gustavo Vinhola RM 98826
 Jean Carlos RM 550430 
 
 ## Visão Geral
-Este projeto é um sistema de gestão que permite a administração de produtos, tarefas, usuários e avaliações. 
+
+O Sistema de Gestão é uma aplicação desenvolvida para fornecer funcionalidades de gerenciamento de tarefas, avaliações de usuários e recomendações de produtos ou serviços.
 Ele foi desenvolvido com o intuito de criar uma solução escalável e eficiente para o gerenciamento de dados em diferentes módulos.
 O sistema inclui integração com bancos de dados relacionais (Oracle) e NoSQL (MongoDB), além de oferecer uma API RESTful para interagir com os diferentes modelos.
+A aplicação inclui integração com serviços externos, como o ViaCEP, para buscar dados de endereço a partir de CEPs brasileiros.
 
 ## Tecnologias Utilizadas:
-C# com ASP.NET Core
-Entity Framework Core (para integração com Oracle)
-MongoDB.Driver (para integração com MongoDB)
-Swagger/OpenAPI (para documentação da API)
-Microsoft Extensions para gerenciamento de dependências e configurações
+
+ASP.NET Core: Estrutura principal do back-end.
+Entity Framework Core: Gerenciamento de banco de dados relacional.
+MongoDB: Para armazenamento de dados não-relacionais.
+ML.NET: Para implementação de Machine Learning, incluindo modelos de recomendação e análise de sentimento.
+xUnit: Para testes unitários, de integração e de sistema.
+HttpClient: Para integração com a API ViaCEP.
+Swagger: Para documentação e visualização da API.
 
 ## Estrutura do Projeto
+
 Camadas Principais:
   Models: Representam as entidades do sistema como Produto, Tarefa, Usuario, Avaliacao, Cliente.
   Repositorios: Contém interfaces e implementações dos repositórios para gerenciar operações de banco de dados (CRUD).
@@ -29,6 +36,11 @@ Camadas Principais:
   Settings: Gerencia configurações específicas como conexões ao banco de dados.
   
 ## Funcionalidades
+
+Gerenciamento de Tarefas: Cadastro, atualização e exclusão de tarefas.
+Gerenciamento de Usuários e Avaliações: Criação e atualização de usuários com avaliações detalhadas.
+Integração com API Externa (ViaCEP): Consulta de endereços por CEP via API externa.
+
 1. Gerenciamento de Produtos
   Listar Produtos: Retorna todos os produtos disponíveis no sistema.
   Adicionar Produto: Cadastra um novo produto.
@@ -60,38 +72,37 @@ Camadas Principais:
   Deletar Cliente: Remove um cliente do sistema MongoDB.
 
 ## Instalação e Configuração
+
 Pré-requisitos:
   .NET SDK 7.0 ou superior: Para rodar e compilar a API.
   Visual Studio Code: IDE para desenvolvimento e execução do projeto.
   SQL Server ou Oracle: Servidor de banco de dados relacional utilizado no projeto.
   Docker (Opcional): Para rodar o banco de dados em containers Docker, caso prefira.
   Postman ou similar: Para testar as requisições HTTP da API.
+  MongoDB.
+  Dependências listadas no Program.cs.
 
-## Passos para rodar o projeto:
-1. Clone o repositório:
-git clone https://github.com/jeanncarlos7/ChallengeSistemaDeGestao.git 
+## Pastas Importantes
+
+Controllers: Define os controladores para rotas da API.
+Models: Modelos de dados para a aplicação.
+Repositorios: Repositórios para interações com o banco de dados.
+Settings: Configurações da aplicação, incluindo configurações de banco de dados.
+Tests: Contém os testes unitários, de integração e de sistema para diferentes funcionalidades.
 
 ## Testes
-Para rodar os testes, siga os passos abaixo:
 
-1. Instalar pacotes de teste: Certifique-se de que você tem as bibliotecas de testes instaladas:
-dotnet add package NUnit
-dotnet add package NUnit3TestAdapter
-dotnet add package Microsoft.NET.Test.Sdk
+A solução contém testes unitários, de integração e de sistema usando o xUnit. 
 
-2. Executar testes:
-dotnet test
+## Testes Específicos
 
-## Contribuição
-Sinta-se à vontade para contribuir com melhorias para o projeto. Para isso, siga o fluxo abaixo:
+Testes Unitários: Para testar unidades individuais de código.
+Testes de Integração: Validam interações entre componentes, como o UsuarioRepository.
+Testes de Sistema: Testam o comportamento da aplicação como um todo, simulando a comunicação entre vários componentes.
 
-  Faça um Fork do projeto.
-  Crie uma nova branch para sua funcionalidade (git checkout -b feature/nova-funcionalidade).
-  Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
-  Faça o Push para o branch (git push origin feature/nova-funcionalidade).
-  Abra um Pull Request.
 
-  ### Princípios SOLID
+### Princípios SOLID
+
 - **SRP (Princípio da Responsabilidade Única)**: Cada serviço implementa uma única responsabilidade, como `AuthService` para autenticação.
 - **OCP (Princípio Aberto-Fechado)**: A aplicação utiliza interfaces para desacoplar implementações específicas.
   
