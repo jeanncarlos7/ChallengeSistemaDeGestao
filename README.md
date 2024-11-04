@@ -28,13 +28,12 @@
 
 ## Estrutura do Projeto
 
-Camadas Principais:
-  Models: Representam as entidades do sistema como Produto, Tarefa, Usuario, Avaliacao, Cliente.
-  Repositorios: Contém interfaces e implementações dos repositórios para gerenciar operações de banco de dados (CRUD).
-  Controllers: Controladores que expõem a API e lidam com as solicitações HTTP.
-  Services: Serviços que encapsulam a lógica de negócios e comunicação com MongoDB.
-  ConfiguracaoSingleton: Implementa o padrão Singleton para gerenciar a configuração central do sistema.
-  Settings: Gerencia configurações específicas como conexões ao banco de dados.
+- Models: Representam as entidades do sistema como Produto, Tarefa, Usuario, Avaliacao, Cliente.
+- Repositorios: Contém interfaces e implementações dos repositórios para gerenciar operações de banco de dados (CRUD).
+- Controllers: Controladores que expõem a API e lidam com as solicitações HTTP.
+- Services: Serviços que encapsulam a lógica de negócios e comunicação com MongoDB.
+- ConfiguracaoSingleton: Implementa o padrão Singleton para gerenciar a configuração central do sistema.
+- Settings: Gerencia configurações específicas como conexões ao banco de dados.
   
 ## Funcionalidades
 
