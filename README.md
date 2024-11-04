@@ -2,28 +2,29 @@
 
 ## Alunos: 
 
-Felipe Torlai RM 550263
-Felipe Pinheiro RM 550244
-Gabriel Girami RM 98017
-Gustavo Vinhola RM 98826
-Jean Carlos RM 550430 
+- Felipe Torlai RM 550263
+- Felipe Pinheiro RM 550244
+- Gabriel Girami RM 98017
+- Gustavo Vinhola RM 98826
+- Jean Carlos RM 550430 
 
 ## Visão Geral
 
-O Sistema de Gestão é uma aplicação desenvolvida para fornecer funcionalidades de gerenciamento de tarefas, avaliações de usuários e recomendações de produtos ou serviços.
-Ele foi desenvolvido com o intuito de criar uma solução escalável e eficiente para o gerenciamento de dados em diferentes módulos.
-O sistema inclui integração com bancos de dados relacionais (Oracle) e NoSQL (MongoDB), além de oferecer uma API RESTful para interagir com os diferentes modelos.
-A aplicação inclui integração com serviços externos, como o ViaCEP, para buscar dados de endereço a partir de CEPs brasileiros.
+- O Sistema de Gestão é uma aplicação desenvolvida para fornecer funcionalidades de gerenciamento de tarefas, avaliações de usuários e recomendações de produtos ou serviços.
+- Ele foi desenvolvido com o intuito de criar uma solução escalável e eficiente para o gerenciamento de dados em diferentes módulos.
+- O sistema inclui integração com bancos de dados relacionais (Oracle) e NoSQL (MongoDB), além de oferecer uma API RESTful para interagir com os diferentes modelos.
+- A aplicação inclui integração com serviços externos, como o ViaCEP, para buscar dados de endereço a partir de CEPs brasileiros.
 
 ## Tecnologias Utilizadas:
 
-ASP.NET Core: Estrutura principal do back-end.
-Entity Framework Core: Gerenciamento de banco de dados relacional.
-MongoDB: Para armazenamento de dados não-relacionais.
-ML.NET: Para implementação de Machine Learning, incluindo modelos de recomendação e análise de sentimento.
-xUnit: Para testes unitários, de integração e de sistema.
-HttpClient: Para integração com a API ViaCEP.
-Swagger: Para documentação e visualização da API.
+- ASP.NET Core: Estrutura principal do back-end.
+- Entity Framework Core: Gerenciamento de banco de dados relacional.
+- MongoDB: Para armazenamento de dados não-relacionais.
+- ML.NET: Para implementação de Machine Learning, incluindo modelos de recomendação e análise de sentimento.
+- xUnit: Para testes unitários, de integração e de sistema.
+- HttpClient: Para integração com a API ViaCEP.
+- Swagger: Para documentação e visualização da API.
+- Moq (para mocks)
 
 ## Estrutura do Projeto
 
@@ -37,9 +38,9 @@ Camadas Principais:
   
 ## Funcionalidades
 
-Gerenciamento de Tarefas: Cadastro, atualização e exclusão de tarefas.
-Gerenciamento de Usuários e Avaliações: Criação e atualização de usuários com avaliações detalhadas.
-Integração com API Externa (ViaCEP): Consulta de endereços por CEP via API externa.
+- Gerenciamento de Tarefas: Cadastro, atualização e exclusão de tarefas.
+- Gerenciamento de Usuários e Avaliações: Criação e atualização de usuários com avaliações detalhadas.
+- Integração com API Externa (ViaCEP): Consulta de endereços por CEP via API externa.
 
 1. Gerenciamento de Produtos
   Listar Produtos: Retorna todos os produtos disponíveis no sistema.
@@ -74,31 +75,31 @@ Integração com API Externa (ViaCEP): Consulta de endereços por CEP via API ex
 ## Instalação e Configuração
 
 Pré-requisitos:
-  .NET SDK 7.0 ou superior: Para rodar e compilar a API.
-  Visual Studio Code: IDE para desenvolvimento e execução do projeto.
-  SQL Server ou Oracle: Servidor de banco de dados relacional utilizado no projeto.
-  Docker (Opcional): Para rodar o banco de dados em containers Docker, caso prefira.
-  Postman ou similar: Para testar as requisições HTTP da API.
-  MongoDB.
-  Dependências listadas no Program.cs.
+- .NET SDK 7.0 ou superior: Para rodar e compilar a API.
+- Visual Studio Code: IDE para desenvolvimento e execução do projeto.
+- SQL Server ou Oracle: Servidor de banco de dados relacional utilizado no projeto.
+- Docker (Opcional): Para rodar o banco de dados em containers Docker, caso prefira.
+- Postman ou similar: Para testar as requisições HTTP da API.
+- MongoDB.
+- Dependências listadas no Program.cs.
 
 ## Pastas Importantes
 
-Controllers: Define os controladores para rotas da API.
-Models: Modelos de dados para a aplicação.
-Repositorios: Repositórios para interações com o banco de dados.
-Settings: Configurações da aplicação, incluindo configurações de banco de dados.
-Tests: Contém os testes unitários, de integração e de sistema para diferentes funcionalidades.
+- Controllers: Define os controladores para rotas da API.
+- Models: Modelos de dados para a aplicação.
+- Repositorios: Repositórios para interações com o banco de dados.
+- Settings: Configurações da aplicação, incluindo configurações de banco de dados.
+- Tests: Contém os testes unitários, de integração e de sistema para diferentes funcionalidades.
 
 ## Testes
 
-A solução contém testes unitários, de integração e de sistema usando o xUnit. 
+- A solução contém testes unitários, de integração e de sistema usando o xUnit. 
 
 ## Testes Específicos
 
-Testes Unitários: Para testar unidades individuais de código.
-Testes de Integração: Validam interações entre componentes, como o UsuarioRepository.
-Testes de Sistema: Testam o comportamento da aplicação como um todo, simulando a comunicação entre vários componentes.
+- Testes Unitários: Para testar unidades individuais de código.
+- Testes de Integração: Validam interações entre componentes, como o UsuarioRepository.
+- Testes de Sistema: Testam o comportamento da aplicação como um todo, simulando a comunicação entre vários componentes.
 
 
 ### Princípios SOLID
@@ -107,7 +108,8 @@ Testes de Sistema: Testam o comportamento da aplicação como um todo, simulando
 - **OCP (Princípio Aberto-Fechado)**: A aplicação utiliza interfaces para desacoplar implementações específicas.
   
 ## Licença
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
+
+- Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
 
 
 
