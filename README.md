@@ -96,7 +96,8 @@ Pré-requisitos:
 
 ## Testes
 
-- A solução contém testes unitários, de integração e de sistema usando o xUnit. 
+- A solução contém testes unitários, de integração e de sistema usando o xUnit.
+- https://github.com/jeanncarlos7/ChallengeSistemaDeGestao/blob/master/SistemaGestao.Insomnia/Insomnia_2024-10-27.json
 
 ## Testes Específicos
 
